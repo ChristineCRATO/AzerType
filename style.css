@@ -1,0 +1,31 @@
+h1 {
+    color: rgb(182, 95, 9);
+    font-size: 48px;
+    display: flex;
+    justify-content: center;
+}
+
+h2 {
+    color: orange;
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+}
+
+p {
+    color: black;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+    background-color: orange;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
