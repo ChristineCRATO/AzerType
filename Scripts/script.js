@@ -1,47 +1,78 @@
-console.log("Hello World !") // texte de test à l'affichage //
+console.log("Hello World !"); // texte de test à l'affichage //
 
-// Variable contenant le mot ou la phrase du User //
-let motUtilisateur;
+// La fonction affiche le score du User //
+function afficheScore(score, nbreMotsChoix) {
+  let spanScore = document.querySelector(".zoneScore span")
+  let afficheScore = `${score} / ${nbreMotsChoix}`
 
-// Défini le score de l'uutilisateur, il commence à 0 //
-let score = 0;
-
-// Le User doit choisir entre les mots ou les phrases, sinon la question reviendra à l'infini //
-let choix = prompt("Choisis ce que tu préfères dans la liste : des mots ou des phrases !");
-while (choix !== "mots" && choix !== "phrases") { // Laisse le choix à l'utilisateur //
-  choix = prompt("Il faut que tu choisisses dans la liste : des mots ou des phrases 😅 !");
+  spanScore.innerText = afficheScore
 }
 
-// Le User a choisi les mots, il doit taper les mots de la liste...//
-if (choix === "mots") {
-  for (let i = 0; i < listeMots.length; i++) {
-    let motUtilisateur = prompt(
-      "Bonjour, saisis les mots 😉 : " + listeMots[i]
-    );
-    if (motUtilisateur === listeMots[i]) {
-      score++
-    }
+function afficheChoix(choix) {
+  let zoneChoix = document.querySelector(".zoneChoix")
+  zoneChoix.innerText = choix
+}
+
+function afficheEmail(nom, email, score) {
+  let mailto = `mailto:${email}?subject=Partage du score AzerType&body=Salut, je suis ${nom} et je viens de réaliser le score ${score} sur le site d'AzerType !`
+  location.href= mailto
+}
+
+// La fonction lance le Jeu et demande au User de choisir entre mots et phrases //
+function lanceLeJeu() {
+  // Initialisations
+  let score = 0;
+  let i = 0
+  let listeChoix = listeMots
+
+  let btnValide = document.getElementById("btnValide")
+  let inputEcriture = document.getElementById("inputEcriture")
+
+  afficheChoix(listeChoix[i])
+
+  btnValide.addEventListener("click", () => {
+      if (inputEcriture.value === listeChoix[i]) {
+          score++
+      }
+      i++
+      afficheScore(score, i)
+      inputEcriture.value = ''
+      if (listeChoix[i] === undefined) {
+        afficheChoix("Le Jeu est Terminé !")
+        btnValide.Disabled = true
+      } else {
+        afficheChoix(listeChoix[i])
+      }
+  })
+
+  // Changement avec les boutons radio
+  let listeBtnRadio = document.querySelectorAll(".optionSource input")
+  for (let index = 0; index < listeBtnRadio.length; index++) {
+    listeBtnRadio[index].addEventListener("change", (event) => {
+      console.log(event.target.value)
+      if (event.target.value ===  "1") { // On veut jouer avec les mots
+        listeChoix = listeMots
+      } else { // Sinon on veut jouer avec les phrases
+        listeChoix = listePhrases
+      }
+      afficheChoix(listeChoix[i]) // On modifie en direct l'affichage
+    })
   }
-console.log("Ton score est de " + score + " sur " + listeMots.length);
-} else {
 
-// Le User a choisi les phrases, il doit taper les phrases de la liste...//
-for (let i = 0; i < listePhrases.length; i++) {
-  let motUtilisateur = prompt(
-    "Bonjour, saisis ta phrase : " + listePhrases[i]
-  );
-  if (motUtilisateur === listePhrases[i]) {
-    score++
-  }
-}
-console.log("Ton score est de " + score + " sur " + listePhrases.length);
-}
+  let form = document.querySelector("form")
+  form.addEventListener("submit", (event) => {
+    event.preventDefault()
 
-let nouveauMessage = donneMonScore(5, 10)
-console.log(nouveauMessage)
+    let baliseNom = document.getElementById("nom")
+    let nom = baliseNom.value
 
-// Voici les résultats du User //
-function donneMonScore(score, nombreQuestions) {
-    let message = "Ton score est de " + score + " sur " + nombreQuestions
-    return message
+    let baliseEmail = document.getElementById("email")
+    let email = baliseEmail.value
+
+    let scoreEmail = `${score} / ${i}`
+
+    console.log(nom, email, scoreEmail)
+  })
+
+  afficheScore(score, i)
 }

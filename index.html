@@ -6,23 +6,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>AzerTyper</title>
-    <script src="config.js"></script> <!-- Listes utilisées pour le jeu -->
-    <script src="script.js"></script> <!-- Fonctions et règles du jeu -->
-    <script src="main.js"></script> <!-- Point d'entrée de mon jeu -->
+
+    <!-- L'ordre des fichiers est trés important pour le bon déroulement du site -->
+    <script src="Scripts/config.js" defer></script> <!-- Listes utilisées pour le jeu -->
+    <script src="Scripts/popup.js" defer></script> <!-- Fonction pour Popup Affichage -->
+    <script src="Scripts/script.js" defer></script> <!-- Fonctions et règles du jeu -->
+    <script src="Scripts/main.js" defer></script> <!-- Point d'entrée de mon jeu -->
 </head>
 <body>
     <header>
-   <h1>AzerType</h1>
+        <h1>AzerType</h1>
+        <h2>L'application pour écrire plus vite !</h2>
+        <h3>AzerType l'application en ligne pour apprendre à taper plus vite au clavier 😉</h3>
     </header>
 
-   <h2>L'application pour écrire plus vite !</h2>
-   <p>AzerType est une application en ligne pour apprendre à taper plus vite au clavier 😉</p>
-<main>
-    
-</main>
-   <footer>
+    <main>
+        <div class="zoneOption">
+            <p>Choisis l'option et tape la proposition qui s'affiche çi-dessous.</p>
+            <div class="optionSource">
+                <input type="radio" name="optionSource" id="mots" value="1" checked>
+                <label for="mots">Mots</label>
+                <input type="radio" name="optionSource" id="phrases" value="2">
+                <label for="phrases">Phrases</label>
+            </div>
+        </div>
+
+        <div class="zoneChoix">
+            AzerType
+        </div>
+
+        <div class="zoneSaisie">
+            <input type="text" id="inputEcriture" name="inputEcriture">
+            <button id="btnValide">Valider</button>
+        </div>
+
+        <div class="zoneScore">
+            Ton score est de : <span>0</span>
+        </div>
+
+        <div class="zonePartage">
+            <button>Partager</button>
+        </div>
+        
+    </main>
+
+    <footer>
     @ Copyright : OpenClassRooms.
    </footer>
+
+   <!-- Popup Partage -->
+   <div class="popupBackG">
+    <div class="popup">
+        <div>Partage ton score</div>
+        <form>
+            <label for="nom">Ton nom</label>
+            <input type="text" id="nom" name="nom" placeholder="Ton nom">
+            <label for="email">Avec qui veux-tu partager ton score ?</label>
+            <input type="email" id="email" name="email" placeholder="nom@domaine.com">
+            <button id="btnEnvoyeMail">Envoyer</button>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>
