@@ -216,9 +216,9 @@ footer {
     padding: 20px;
     text-align: center;
     color: white;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 500;
-    background-color: #f76c5e;
+    background-color: #C39800;
     border-radius: 30px;
     z-index: 1;
 }
@@ -233,13 +233,14 @@ footer {
 }
 
 .popup div {
-    font-size: 25px;
+    font-size: 30px;
     padding : 5px;
     padding-bottom: 15px;
 }
 
 /* Eléments de formulaire */
 .popup input {
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 

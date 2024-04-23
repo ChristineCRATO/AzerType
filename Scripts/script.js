@@ -1,4 +1,8 @@
+/* Ce Fichier contient tous les élèments et Fonctions nécessaire au Jeu */
+
+
 console.log("Hello World !"); // texte de test à l'affichage //
+
 
 // La fonction affiche le score du User //
 function afficheScore(score, nbreMotsChoix) {
@@ -18,9 +22,62 @@ function afficheEmail(nom, email, score) {
   location.href= mailto
 }
 
+// Vérifie le bon format
+function valideNom(nom) {
+  if (nom.length > 2) {
+      throw new Error("Le Nom est trop court.")
+  }
+ 
+}
+
+// Vérifie le bon format avec la fonction Boolean
+function valideEmail(email) {
+  let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+")
+  if (!emailRegExp.test(email)) {
+    throw new Error("L'Email n'est pas correct !")
+  }
+  
+}
+
+// Affiche l'erreur message
+function afficheMessageErreur(message) {
+    
+  let spanErreurMessage = document.getElementById("erreurMessage")
+
+  if (!spanErreurMessage) {
+      let popup = document.querySelector(".popup")
+      spanErreurMessage = document.createElement("span")
+      spanErreurMessage.id = "erreurMessage"
+      
+      popup.append(spanErreurMessage)
+  }
+  
+  spanErreurMessage.innerText = message
+}
+
+// Récupère les infos du formulaire popup et appel affichage email
+function gereFormulaire(scoreEmail) {
+  try {
+      let baliseNom = document.getElementById("nom")
+      let nom = baliseNom.value
+      valideNom(nom)
+  
+      let baliseEmail = document.getElementById("email")
+      let email = baliseEmail.value
+      valideEmail(email)
+      afficheMessageErreur("")
+      afficheEmail(nom, email, scoreEmail)
+
+  } catch(erreur) {
+      afficheMessageErreur(erreur.message)
+  }
+  
+}
+
 // La fonction lance le Jeu et demande au User de choisir entre mots et phrases //
 function lanceLeJeu() {
   // Initialisations
+  initAddEventListenerPopup()
   let score = 0;
   let i = 0
   let listeChoix = listeMots
@@ -39,7 +96,7 @@ function lanceLeJeu() {
       inputEcriture.value = ''
       if (listeChoix[i] === undefined) {
         afficheChoix("Le Jeu est Terminé !")
-        btnValide.Disabled = true
+        btnValide.disabled = true
       } else {
         afficheChoix(listeChoix[i])
       }
@@ -69,10 +126,13 @@ function lanceLeJeu() {
     let baliseEmail = document.getElementById("email")
     let email = baliseEmail.value
 
-    let scoreEmail = `${score} / ${i}`
-
-    console.log(nom, email, scoreEmail)
-  })
+    if (valideNom(nom) && valideEmail(email)) {
+        let scoreEmail = `${score} / ${i}`
+        afficheEmail(nom, email, scoreEmail)
+    } else {
+        console.log("Erreur")
+    }
+    })
 
   afficheScore(score, i)
 }
